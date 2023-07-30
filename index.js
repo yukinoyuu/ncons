@@ -1,19 +1,12 @@
 const dotenv = require("dotenv")
 const { Client } = require("@notionhq/client")
+const moment = require("moment")
 
 dotenv.config()
 
 const notion = new Client({ auth: process.env.NOTION_API_KEY })
 const databaseId = process.env.NOTION_DATABASE_ID
 const ytApiKey = process.env.YOUTUBE_API_KEY
-
-const parseISO8601Duration = (duration) => {
-    const matches = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
-    const hours = matches[1] ? parseInt(matches[1]) : 0;
-    const minutes = matches[2] ? parseInt(matches[2]) : 0;
-    const seconds = matches[3] ? parseInt(matches[3]) : 0;
-    return hours*60*60 + minutes*60 + seconds;
-}
 
 const fetchYtData = async (url) => {
     const videoId = url.slice(32)
@@ -24,7 +17,7 @@ const fetchYtData = async (url) => {
     return {
         name: data.items[0].snippet.title,
         author: data.items[0].snippet.channelTitle,
-        duration: parseISO8601Duration(data.items[0].contentDetails.duration),
+        duration: moment.duration(data.items[0].contentDetails.duration).asSeconds(),
         link: url,
         channelId: data.items[0].snippet.channelId
     }
