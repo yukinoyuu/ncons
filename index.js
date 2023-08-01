@@ -52,8 +52,9 @@ const addConsumption = async ( { name, author, duration, link, channelId } ) => 
                     } 
                 },
                 Duration: {
-                    type: 'rich_text',
-                    rich_text: [{ type: 'text', text: { content: Math.round(duration / 60).toString() } }]
+                    type: "number",
+                    number: Math.round(duration / 60)
+                    // rich_text: [{ type: 'text', text: { content: Math.round(duration / 60).toString() } }]
                 },
                 Date: {
                     type: 'rich_text',
