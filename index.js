@@ -39,7 +39,7 @@ const addConsumption = async ( { name, author, duration, link, channelId } ) => 
                 },
                 Author: {
                     type: 'rich_text',
-                    rich_text: [{ type: 'text', text: { content: author, link: {url: `https://www.youtube.com/channel/{$channelId}`} } }]
+                    rich_text: [{ type: 'text', text: { content: author, link: {url: `https://www.youtube.com/channel/${channelId}`} } }]
                 },
                 Status: {
                     status: {
@@ -64,6 +64,7 @@ const addConsumption = async ( { name, author, duration, link, channelId } ) => 
                             mention: {
                                 type: 'date',
                                 date: {
+                                    time_zone: "America/Chicago",
                                     start: Now.toISOString(),
                                     end: After.toISOString()
                                 }
